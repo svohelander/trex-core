@@ -558,8 +558,8 @@ Other network devices
 
         if_list= if_list_remove_sub_if(self.m_cfg_dict[0]['interfaces']);
         l=len(if_list);
-        if l > 24:
-            raise DpdkSetup("Configuration file %s should include interfaces field with maximum 24 elements, got: %s." % (fcfg,l))
+        if l > 32:
+            raise DpdkSetup("Configuration file %s should include interfaces field with maximum 32 elements, got: %s." % (fcfg,l))
         if l % 2:
             raise DpdkSetup("Configuration file %s should include even number of interfaces, got: %s" % (fcfg,l))
         if 'port_limit' in cfg_dict:
@@ -762,8 +762,8 @@ Other network devices
             if ret:
                 print("Could not start bird_server\nIf you don't need it, don't use --bird-server flag.")
                 sys.exit(-1)
-        
-        
+
+
 
     # check vdev Linux interfaces status
     # return True if interfaces are vdev
@@ -833,7 +833,7 @@ Other network devices
                 if iface_pci == device['Slot'].split('.')[0]:
                     if device.get('Driver_str') == 'i40e':
                         if pa() and pa().unbind_unused_ports:
-                            # if --unbind-unused-ports is set we unbind ports that are not 
+                            # if --unbind-unused-ports is set we unbind ports that are not
                             # used by TRex
                             unbind_devices.add(device['Slot'])
                         else:
@@ -914,7 +914,7 @@ Other network devices
             for key in if_list:
                 if key == 'dummy':
                     continue
-                if pa().no_ofed_check: # in case of no-ofed don't optimized for Azure 
+                if pa().no_ofed_check: # in case of no-ofed don't optimized for Azure
                     continue
                 key = self.split_pci_key(key)
                 if 'Virtual' not in self.m_devices[key]['Device_str']:
@@ -1063,7 +1063,7 @@ Other network devices
         cpu_topology = OrderedDict()
         base_path = "/sys/devices/system/cpu"
         cpus = []
-       
+
         file_re = re.compile(base_path + '/cpu([0-9]+)$')
         for cpu_dir in glob.glob('{}/cpu*'.format(base_path)):
             cpu_obj = file_re.match(cpu_dir)
@@ -1116,7 +1116,7 @@ Other network devices
         sorted_pci = sorted(self.m_devices.keys())
         for interface in input_interfaces:
             if interface == 'dummy':
-                dev = {} 
+                dev = {}
                 dev['Vendor_str'] = ''
                 dev['Slot'] = ''
                 dev['Slot_str'] = 'dummy'
@@ -1543,7 +1543,7 @@ def kill_pybird():
         if ret:
             print("Could not stop bird daemon server.")
             sys.exit(-1)
-   
+
 def cleanup_servers():
     ''' cleanup scapy and bird servers '''
     if should_scapy_server_run():
@@ -1563,7 +1563,7 @@ def main ():
         if map_driver.args.cleanup_servers:
             cleanup_servers()
             return
-        
+
         if map_driver.args.show:
             dpdk_nic_bind.show_status()
             return

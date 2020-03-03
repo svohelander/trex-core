@@ -4224,7 +4224,7 @@ COLD_FUNC void CGlobalTRex::dump_post_test_stats(FILE *fd){
 
     if (pkt_in > pkt_out)
         {
-            fprintf (fd, " Total-pkt-drop       : 0 pkts \n");
+            fprintf (fd, " Total-pkt-drop       : -%llu pkts \n" ,(unsigned long long) (pkt_in - pkt_out));
             if (pkt_in > pkt_out * 1.01)
                 fprintf (fd, " Warning : number of rx packets exceeds 101%% of tx packets!\n");
         }

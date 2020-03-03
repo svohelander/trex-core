@@ -4910,6 +4910,8 @@ COLD_FUNC void CGlobalTRex::shutdown() {
     wait_for_all_cores();
     m_stx->shutdown(true);
 
+    delay(2000);
+
     /* shutdown drivers */
     for (int i = 0; i < m_max_ports; i++) {
         m_ports[i]->stop();

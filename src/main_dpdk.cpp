@@ -4911,7 +4911,7 @@ COLD_FUNC void CGlobalTRex::shutdown() {
     m_stx->shutdown(true);
 
     delay(5000);
-
+    sync_threads_stats();
     /* shutdown drivers */
     for (int i = 0; i < m_max_ports; i++) {
         m_ports[i]->stop();
@@ -7189,6 +7189,7 @@ COLD_FUNC int CGlobalTRex::run_in_master() {
     m_monitor.enable();
   }
 
+  handle_slow_path();
   /* on exit release the lock */
   cp_lock.unlock();
 
